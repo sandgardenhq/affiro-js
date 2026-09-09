@@ -1,0 +1,32 @@
+{
+    "name": "@sandgardenhq/affiro",
+    "version": "0.1.0",
+    "description": "Embed Affiro's keystroke-signature verification (WASM) in any web page, no browser extension required",
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/affiro.esm.js",
+    "module": "./dist/affiro.esm.js",
+    "unpkg": "./dist/affiro.min.js",
+    "jsdelivr": "./dist/affiro.min.js",
+    "exports": {
+        ".": {
+            "import": "./dist/affiro.esm.js"
+        }
+    },
+    "files": [
+        "dist/affiro.esm.js",
+        "dist/affiro.min.js",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "npx tsc src/*.ts && esbuild src/index.js --bundle --format=esm --outfile=dist/affiro.esm.js && esbuild src/index.js --bundle --format=iife --global-name=Affiro --minify --outfile=dist/affiro.min.js",
+        "test": "node --test"
+    },
+    "devDependencies": {
+        "esbuild": "^0.28.2"
+    },
+    "dependencies": {
+        "typescript": "^7.0.2"
+    }
+}
