@@ -1,6 +1,6 @@
 {
     "name": "@sandgarden/affiro",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Embed Affiro's keystroke-signature verification in any web page, no browser extension required",
     "license": "Apache-2.0",
     "type": "module",
