@@ -28,7 +28,6 @@ monitor.reset();  // start a fresh signature
 
 ```
 npm install
-npm install typescript
-npm run build     # -> dist/affiro.esm.js, dist/affiro.min.js, dist/affiro.extension.js, dist/keymonitor.wasm
-npm test 
+npm run build     # -> dist/affiro.esm.js, dist/affiro.min.js
+npm test
 ```
