@@ -1,11 +1,11 @@
-# @sandgardenhq/affiro
+# @sandgarden/affiro
 
 Embed Affiro's keystroke-signature verification on any web page, no browser extension required.
 
 ### Usage
 
 ```js
-import { Monitor } from "@sandgardenhq/affiro";
+import { Monitor } from "@sandgarden/affiro";
 
 const monitor = new Monitor();
 

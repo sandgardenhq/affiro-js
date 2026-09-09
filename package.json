@@ -1,5 +1,5 @@
 {
-    "name": "@sandgardenhq/affiro",
+    "name": "@sandgarden/affiro",
     "version": "0.1.0",
     "description": "Embed Affiro's keystroke-signature verification in any web page, no browser extension required",
     "license": "Apache-2.0",
