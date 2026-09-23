@@ -56,16 +56,19 @@ export class Asig {
     }
 }
 
-function bytesToBase64(bytes : Uint8Array) {
+export function bytesToBase64(bytes : Uint8Array) {
     var binary = '';
     var len = bytes.byteLength;
     for (var i = 0; i < len; i++) {
         binary += String.fromCharCode( bytes[ i ] );
     }
-    return btoa( binary );
+    let ascii = btoa( binary );
+    ascii = ascii.replaceAll("+", "-")
+    ascii = ascii.replaceAll("/", "_")
+    return ascii;
 }
 
-function int64ToBytes(num : number) {
+export function int64ToBytes(num : number) {
   const buffer = new ArrayBuffer(8);
   const view = new DataView(buffer);
   view.setBigInt64(0, BigInt(num), true); 
