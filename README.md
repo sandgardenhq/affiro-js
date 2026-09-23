@@ -15,11 +15,13 @@ monitor.reset();  // start a fresh signature
 
 ### Plain HTML page 
 
+The script build puts everything under a global `Affiro`:
+
 ```html
 
 <script src="affiro.min.js"></script>
 <script>
-    let monitor = new Monitor();
+    let monitor = new Affiro.Monitor();
     console.log(monitor.toString());
 </script>
 ```
