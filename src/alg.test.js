@@ -32,3 +32,11 @@ test("startSecond is url-safe", async (t) => {
         assert.ok(!ascii.includes("/"))
     }
 });
+
+test("asig string uses the URL-safe alphabet Go decodes", async (t) => {
+    const sig = new Asig();
+    // Standard base64 would give "+" and "/" here.
+    sig.startSecond = 1790107711;
+    sig.data = new Uint8Array([0xff]);
+    assert.strictEqual(sig.toString(), "1.P-CyagAAAAA.._w");
+});
