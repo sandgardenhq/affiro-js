@@ -1,9 +1,9 @@
 export class Asig {
-    data;
-    buffer;
-    version;
-    startSecond;
-    currentSecond;
+    data: Uint8Array<ArrayBuffer>;
+    buffer: ArrayBuffer;
+    version: number;
+    startSecond: number;
+    currentSecond: number;
 
     constructor() {
         // cf LatestStableVersion
@@ -54,13 +54,105 @@ export class Asig {
         s = s.replaceAll("=", "")
         return s 
     }
+
+    toRandomart(size: "small" | "mid" | "large") {
+        var sizeX:number, sizeY:number;
+        switch (size) {
+            case "small":
+                sizeX = 5
+                sizeY = 9
+            case "mid":
+                sizeX = 7
+                sizeY = 13
+            case "large":
+                sizeX = 9
+                sizeY = 17
+        }
+        const charSet = " .o-=/\\|^v<>OLS"
+
+        var field = new Array<Array<number>>(sizeX);
+
+        for (var i = 0; i < field.length; i++) {
+            field[i] = new Array<number>(sizeY);
+        }
+
+        const maxChar = charSet.length - 1
+
+        let x = Math.trunc(sizeX / 2)
+        let y = Math.trunc(sizeY / 2)
+
+        this.data.forEach((b: number) => {
+            for (let j = 0; j < 4; j++) {
+                if ((b & 0x1) > 0) {
+                    x++
+                } else {
+                    x--
+                }
+                if ((b & 0x2) > 0) {
+                    y++
+                } else {
+                    y--
+                }
+                if (x < 0) {
+                    x = 0
+                }
+                if (x > sizeX-1) {
+                    x = sizeX-1
+                }
+                if (y < 0) {
+                    y = 0
+                }
+                if (y > sizeY-1) {
+                    y = sizeY-1
+                }
+                let f = field[x][y] || 0
+                if (f < maxChar-2) {
+                    field[x][y] = f+1
+                }
+                b >>= 2 
+            }
+        })
+
+        field[Math.trunc(sizeX/2)][Math.trunc(sizeY/2)] = maxChar - 1
+        field[x][y] = maxChar
+
+        let out = ""
+        out += '╭'
+        for (let i = 0; i < sizeX; i++) {
+            out += '─'
+        }
+        out += '╮'
+        out += '\n'
+
+        for (let y = 0; y < sizeY; y++) {
+            out += '│'
+            for (let x = 0; x < sizeX; x++) {
+                let f = field[x][y]
+                console.log(x,y,f)
+                if (!f) {
+                    f = 0
+                }
+                out += charSet[f]
+            }
+            out += '│'
+            out += '\n'
+        }
+
+        out += '╰'
+        for (let i = 0; i < sizeX; i++) {
+            out += '─'
+        }
+        out += '╯'
+
+        return out 
+    }
 }
 
 export function bytesToBase64(bytes : Uint8Array) {
     var binary = '';
     var len = bytes.byteLength;
     for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
+        binary += String.fromCharCode(bytes[i]);
     }
     let ascii = btoa( binary );
     ascii = ascii.replaceAll("+", "-")

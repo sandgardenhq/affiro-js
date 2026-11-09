@@ -1,14 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { Asig, AsigEvent, bytesToBase64, int64ToBytes } from "./alg.js";
-
 test("asig string matches Go", async (t) => {
     const sig = new Asig();
     let ev = new AsigEvent();
-    ev.mouse = true; 
+    ev.mouse = true;
     sig.writeEvent(ev);
     ev = new AsigEvent();
-    ev.keyCode = "KeyA"
+    ev.keyCode = "KeyA";
     sig.writeEvent(ev);
     const str = sig.toString();
     assert.ok(str.startsWith("1."));
@@ -16,20 +15,18 @@ test("asig string matches Go", async (t) => {
     // we could hardcode a current time. 
     assert.ok(str.endsWith("AAAA..Aw"));
     assert.strictEqual(str.length, 17);
-    console.log(str)
+    // console.log(str)
 });
-
 function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+    return Math.floor(Math.random() * max);
 }
-
 test("startSecond is url-safe", async (t) => {
     for (let i = 0; i < 10000; i++) {
-        const j = getRandomInt(1000000000)
-        const ascii = bytesToBase64(int64ToBytes(j))
-        console.log(ascii)
-        assert.ok(!ascii.includes("+"))
-        assert.ok(!ascii.includes("/"))
+        const j = getRandomInt(1000000000);
+        const ascii = bytesToBase64(int64ToBytes(j));
+        // console.log(ascii)
+        assert.ok(!ascii.includes("+"));
+        assert.ok(!ascii.includes("/"));
     }
 });
 
@@ -39,4 +36,29 @@ test("asig string uses the URL-safe alphabet Go decodes", async (t) => {
     sig.startSecond = 1790107711;
     sig.data = new Uint8Array([0xff]);
     assert.strictEqual(sig.toString(), "1.P-CyagAAAAA.._w");
+})
+
+test("toRandomart does anything", async (t) => {
+    const sig = new Asig();
+    let ev = new AsigEvent();
+    ev.mouse = true;
+    sig.writeEvent(ev);
+    ev = new AsigEvent();
+    ev.keyCode = "KeyA";
+    for (let i = 0; i < 100; i++) {
+        sig.writeEvent(ev);
+    }
+    ev.mouse = true;
+    ev.keyCode = "";
+    await new Promise(r => setTimeout(r, 5000));
+    for (let i = 0; i < 100; i++) {
+        sig.writeEvent(ev);
+    }
+    await new Promise(r => setTimeout(r, 5000));
+    for (let i = 0; i < 100; i++) {
+        sig.writeEvent(ev);
+    }
+    console.log(sig.toString());
+    const art = sig.toRandomart("large");
+    console.log(art);
 });
