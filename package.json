@@ -28,10 +28,11 @@
         "LICENSE"
     ],
     "scripts": {
-        "build": "npx tsc src/*.ts && esbuild src/index.js --bundle --format=esm --outfile=dist/affiro.esm.js && esbuild src/index.js --bundle --format=iife --global-name=Affiro --minify --outfile=dist/affiro.min.js",
-        "test": "node --test"
+        "build": "npx tsc && esbuild src/index.js --bundle --format=esm --outfile=dist/affiro.esm.js && esbuild src/index.js --bundle --format=iife --global-name=Affiro --minify --outfile=dist/affiro.min.js",
+        "test": "npx tsc && node --test"
     },
     "devDependencies": {
+        "@types/node": "^26.6.6",
         "esbuild": "^0.28.2",
         "typescript": "^7.0.2"
     }

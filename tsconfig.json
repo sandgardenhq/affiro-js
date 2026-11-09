@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node"
+        ],
+    },
+    "files": [
+        "src/alg.ts",   
+        "src/alg.test.ts",   
+        "src/index.ts",   
+    ]
+}
