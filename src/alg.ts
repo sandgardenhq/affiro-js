@@ -61,12 +61,15 @@ export class Asig {
             case "small":
                 sizeX = 5
                 sizeY = 9
+                break;
             case "mid":
                 sizeX = 7
                 sizeY = 13
+                break;
             case "large":
                 sizeX = 9
                 sizeY = 17
+                break;
         }
         const charSet = " .o-=/\\|^v<>OLS"
 
@@ -128,7 +131,6 @@ export class Asig {
             out += '│'
             for (let x = 0; x < sizeX; x++) {
                 let f = field[x][y]
-                console.log(x,y,f)
                 if (!f) {
                     f = 0
                 }
